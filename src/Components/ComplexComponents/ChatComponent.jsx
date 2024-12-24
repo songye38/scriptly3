@@ -236,7 +236,7 @@ useEffect(() => {
           flexDirection: "column",
           gap: "8px",
           overflowY: "auto",
-          borderLeft: "1px solid #ccc",
+          // borderLeft: "1px solid #ccc",
           maxHeight: "100vh",
         }}
       >
