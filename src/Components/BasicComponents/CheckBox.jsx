@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Checkbox from "antd/es/checkbox";
-import 'antd/dist/reset.css';
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 const CheckBox = () => {
   const [checked, setChecked] = useState(false);
@@ -12,18 +11,25 @@ const CheckBox = () => {
 
   return (
     <div style={{ margin: "4px" }}>
-      <style>
-        {`
-          .ant-checkbox-checked .ant-checkbox-inner {
-            background-color: #3150EE; /* 체크된 상태의 색상 */
-            border-color: #3150EE; /* 체크된 상태의 테두리 */
-          }
-          .ant-checkbox:hover .ant-checkbox-inner {
-            border-color: #4A63F3; /* Hover 시 테두리 색상 */
-          }
-        `}
-      </style>
-      <Checkbox checked={checked} onChange={handleChange}></Checkbox>
+      {/* MUI Checkbox는 기본적으로 스타일이 잘 되어있지만, 추가적인 커스터마이징이 가능합니다 */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={checked}
+            onChange={handleChange}
+            sx={{
+              color: "#3150EE", // 체크되지 않은 상태의 색상
+              "&.Mui-checked": {
+                color: "#3150EE", // 체크된 상태의 색상
+              },
+              "&:hover": {
+                backgroundColor: "rgba(49, 80, 238, 0.04)", // hover 상태의 배경 색상
+              },
+            }}
+          />
+        }
+        label="Check me"
+      />
     </div>
   );
 };

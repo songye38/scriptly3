@@ -1,7 +1,5 @@
-// InputModal.js
 import React, { useState } from 'react';
-import { Modal, Input } from 'antd';
-import Button from './Button';
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from '@mui/material';
 
 const InputModal = ({ setProjectName }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -27,21 +25,33 @@ const InputModal = ({ setProjectName }) => {
 
   return (
     <div>
-      <Button onClick={showModal} title="새로운 프로젝트 만들기" />
-      <Modal
-        title="프로젝트 이름을 적어주세요"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="확인"
-        cancelText="취소"
-      >
-        <Input 
-          placeholder="프로젝트명"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-      </Modal>
+      <Button variant="contained" color="primary" onClick={showModal}>
+        새로운 프로젝트 만들기
+      </Button>
+
+      <Dialog open={isModalVisible} onClose={handleCancel}>
+        <DialogTitle>프로젝트 이름을 적어주세요</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="프로젝트명"
+            type="text"
+            fullWidth
+            variant="outlined"
+            value={inputValue}
+            onChange={handleInputChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancel} color="secondary">
+            취소
+          </Button>
+          <Button onClick={handleOk} color="primary">
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
