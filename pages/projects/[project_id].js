@@ -13,6 +13,7 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
   const [notes, setNotes] = useState(initialNotes || []); 
   const [activeTab, setActiveTab] = useState('study'); // 기본값은 'study'
   const [checkedNotes, setCheckedNotes] = useState({}); // 각 Note의 체크 상태를 관리
+  const [editorContent, setEditorContent] = useState('');
   const router = useRouter();
   const { project_id } = router.query;
 
@@ -22,14 +23,84 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
 
   // 노트 체크 상태 업데이트 함수
   const handleNoteCheckChange = (noteId, isChecked) => {
+    console.log("선택된 노트",noteId);
+    // 'organizing' 탭에서만 체크 상태를 관리하도록
     if (activeTab === 'organizing') {
-      // organizing 탭일 때만 체크 상태를 변경하도록
       setCheckedNotes((prev) => ({
         ...prev,
-        [noteId]: isChecked,
+        [noteId]: isChecked, // 해당 노트의 체크 상태를 업데이트
       }));
     }
   };
+  
+  
+  
+
+  // 버튼 클릭 시 체크된 노트 데이터 서버에서 가져오기
+  const fetchDataForCheckedNotes = async () => {
+    // 체크된 노트들의 ID 추출
+    const checkedNoteIds = Object.keys(checkedNotes).filter((noteId) => checkedNotes[noteId]);
+
+    if (checkedNoteIds.length === 0) {
+      alert('체크된 노트가 없습니다!');
+      return;
+    }
+
+    try {
+      // 체크된 노트들의 질문들을 가져오기
+      const { data: noteQuestions, error } = await supabase
+        .from('note_questions')
+        .select('question_id')
+        .in('note_id', checkedNoteIds);
+
+      if (error) {
+        console.error('note_questions 데이터를 가져오는 데 실패했습니다:', error);
+        return;
+      }
+
+      const questionIds = noteQuestions.map((noteQuestion) => noteQuestion.question_id);
+
+      // study_questions에서 answer_title과 answer_content 가져오기
+      const { data: studyQuestionsData, error: studyQuestionsError } = await supabase
+        .from('study_questions')
+        .select('answer_title, answer_content')
+        .in('id', questionIds);
+
+      if (studyQuestionsError) {
+        console.error('study_questions 데이터를 가져오는 데 실패했습니다:', studyQuestionsError);
+        return;
+      }
+
+      // 노트 내용과 질문을 결합하여 편집기 콘텐츠 만들기
+      let combinedContent = '';
+      studyQuestionsData.forEach((studyQuestion) => {
+        combinedContent += `### ${studyQuestion.answer_title}\n\n${studyQuestion.answer_content}\n\n`;
+      });
+
+      // 상태 업데이트하여 에디터에 콘텐츠 설정
+      setEditorContent(combinedContent); // 에디터 콘텐츠 상태 업데이트
+    } catch (error) {
+      console.error('데이터 가져오기 실패:', error);
+    }
+  };
+
+  // 저장하기 버튼 클릭 시 서버로 데이터를 보내는 함수
+  const handleSaveButtonClick = async () => {
+    // 체크된 노트들을 위한 데이터를 서버에서 가져오고 에디터에 설정
+    await fetchDataForCheckedNotes();
+  };
+
+
+  // useEffect(() => {
+  //   // 컴포넌트가 처음 마운트 될 때 또는 체크된 노트가 변할 때마다 데이터를 가져올 수 있습니다.
+  //   if (activeTab === 'organizing') {
+  //     fetchDataForCheckedNotes();
+  //   }
+  // }, [checkedNotes, activeTab]);
+
+  
+  
+
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -160,14 +231,14 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     };
   }, []); // 빈 배열로 설정하여 최초 1회만 실행
 
-  useEffect(() => {
-    // 노트의 체크 상태 초기화
-    const initialCheckedState = notes.reduce((acc, note) => {
-      acc[note.id] = false; // 모든 노트는 처음에 체크되지 않음
-      return acc;
-    }, {});
-    setCheckedNotes(initialCheckedState);
-  }, [notes]); // notes 상태가 변경될 때마다 실행되도록 의존성 배열에 추가
+  // useEffect(() => {
+  //   // 노트의 체크 상태 초기화
+  //   const initialCheckedState = notes.reduce((acc, note) => {
+  //     acc[note.id] = false; // 모든 노트는 처음에 체크되지 않음
+  //     return acc;
+  //   }, {});
+  //   setCheckedNotes(initialCheckedState);
+  // }, [notes]); // notes 상태가 변경될 때마다 실행되도록 의존성 배열에 추가
 
  
 
@@ -180,7 +251,7 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
       }}>
         <div style={{width: '20%',display:'flex',flexDirection:'column',gap:'12px'}}>
           <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange}/>
-          {activeTab === 'organizing' && <Button title="정리하기" />}
+          {activeTab === 'organizing' && <Button title="정리하기"  onClick={handleSaveButtonClick}/>}
           <div style={{backgroundColor:'#F5F5F5',padding:'16px',borderRadius:'4px'}}>
             <ProjectName  title={project.name}/>
             {/* 챕터 표시 */}
@@ -192,12 +263,16 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
                 const isChecked = checkedNotes[note.id] || false; // 해당 노트의 체크 상태 확인
                 return (
                   <Note
-                    key={note.id}
+                    id={note.id}
                     title={note.title}
                     contentArray={noteQuestions.length > 0 ? noteQuestions.map(nq => nq.question_title) : ['내용 없음']}
-                    isChecked={activeTab === 'organizing' ?true : false}  // 'organizing'일 때만 isChecked 전달
-                    onCheckChange={activeTab === 'organizing' ? (isChecked) => handleNoteCheckChange(note.id, isChecked) : undefined}  // 'organizing'일 때만 onCheckChange 전달
+                    // 'organizing' 탭일 때만 체크박스를 관리할 수 있도록
+                    isChecked={activeTab === 'organizing' ? (checkedNotes[note.id] || false) : false} // 체크 상태
+                    // 'organizing' 탭일 때만 체크박스가 보이도록
+                    isVisible={activeTab === 'organizing'} // 체크박스의 visible 상태
+                    onCheckChange={(id, isChecked) => handleNoteCheckChange(id, isChecked)} // 체크 상태 변경 함수
                   />
+
                 );
               })
             ) : (
@@ -214,7 +289,7 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
           
           {activeTab === 'organizing' && 
             <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <MarkdownEditor initialContent={'hello world'} onSave={(content) => console.log(content)} />
+              <MarkdownEditor initialContent={editorContent}  />
             </div>
           }
         </div>

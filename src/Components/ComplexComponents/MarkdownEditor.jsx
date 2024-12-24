@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { useEffect } from "react";
 
 const MarkdownEditor = ({ initialContent, onSave }) => {
   const [value, setValue] = useState(initialContent);
@@ -14,6 +15,10 @@ const MarkdownEditor = ({ initialContent, onSave }) => {
     }
   };
 
+  useEffect(() => {
+    setValue(initialContent);
+  }, [initialContent]); // editorContent가 변경될 때마다 호출
+
   return (
     <div style={{ width: '75vw', height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'white' }}>
       <MDEditor
@@ -24,6 +29,7 @@ const MarkdownEditor = ({ initialContent, onSave }) => {
           marginBottom: '20px',
           height: '100%',
           backgroundColor: 'white',
+          color : 'black',
         }}
       />
       
