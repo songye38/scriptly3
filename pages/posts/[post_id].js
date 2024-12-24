@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '@/utils/supabase';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'; // 마크다운 확장 지원
-import rehypeHighlight from 'rehype-highlight'; // 코드 하이라이팅 지원
+//import rehypeHighlight from 'rehype-highlight'; // 코드 하이라이팅 지원
 import 'highlight.js/styles/github.css'; // 코드 하이라이팅 스타일
 
 const BlogPost = ({ post }) => {
@@ -36,7 +36,7 @@ const BlogPost = ({ post }) => {
         <ReactMarkdown
           children={post.content}
           remarkPlugins={[remarkGfm]} // GFM 지원 (테이블, 체크박스 등)
-          rehypePlugins={[rehypeHighlight]} // 코드 하이라이팅
+          //ehypePlugins={[rehypeHighlight]} // 코드 하이라이팅
         />
       </div>
     </div>
