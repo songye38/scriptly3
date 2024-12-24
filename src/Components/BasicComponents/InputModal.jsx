@@ -27,25 +27,46 @@ const InputModal = ({ setProjectName }) => {
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={handleOpen} 
+
+<button
+      onClick={handleOpen}
       onMouseEnter={() => setIsHovered(true)} // Hover 시작
       onMouseLeave={() => setIsHovered(false)} // Hover 종료
       style={{
-        width: '100%', // 버튼이 카드와 같은 너비를 차지하도록 설정
-        height: 'auto', // 다른 카드와 동일한 높이로 맞춤
-        justifyContent: 'center', // 텍스트 가운데 정렬
+        width: '100%', // 버튼이 카드와 같은 너비를 차지
+        height: 'auto', // 버튼의 높이를 자동 조정
+        justifyContent: 'center',
         alignItems: 'center',
-        display: 'flex', // 가운데 정렬을 위한 flexbox
-        borderRadius: '8px', // 카드와 동일한 둥근 모서리
-        background:'#CED5FB',
+        display: 'flex', // Flexbox로 정렬
+        flexDirection: 'column', // 수직 배치
+        borderRadius: '8px', // 둥근 모서리
+        background: '#EAEEFD',
         cursor: 'pointer',
-        border: isHovered ? '#3150EE' : 'red', // Hover 시 테두리 색상 변경
+        border: `1.8px solid ${isHovered ? '#5670F1' : '#EAEEFD'}`,
         fontSize: '16px',
         fontWeight: '500',
         color: '#3150EE',
-      }}>
-        새 프로젝트 추가
-      </Button>
+        transition: 'all 0.3s ease', // 전환 애니메이션
+        position: 'relative', // 이미지 애니메이션을 위해 position 설정
+        padding: '16px',
+      }}
+    >
+      {/* 이미지: Hover 시에만 표시 */}
+      <img
+        src="/images/add.svg"
+        alt="Add Icon"
+        style={{
+          color : '#5670F1',
+          width: '24px',
+          height: '24px',
+          transform: isHovered ? 'rotate(90deg)' : 'rotate(0deg)', // 회전 애니메이션
+          transition: 'transform 0.5s ease', // 회전 전환 애니메이션
+          opacity: isHovered ? 1 : 0, // Hover 시 투명도 변경
+        }}
+      />
+      {/* 텍스트 */}
+      <span style={{ marginTop: '8px' }}>새 프로젝트 추가</span>
+    </button>
       <Dialog open={isModalVisible} onClose={handleClose}>
         <DialogTitle>프로젝트 이름 입력</DialogTitle>
         <DialogContent>
