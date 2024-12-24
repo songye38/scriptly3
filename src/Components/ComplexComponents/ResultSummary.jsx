@@ -3,7 +3,7 @@ import { Checkbox } from '@mui/material';
 import ExpandButton from '../BasicComponents/ExpandButton';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { remarkGfm } from 'remark-gfm';
+import remarkGfm from 'remark-gfm';
 
 // TODO : 새로운 컬렉션 생성
 

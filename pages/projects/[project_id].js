@@ -20,7 +20,6 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     return <div>프로젝트를 찾을 수 없습니다.</div>;
   }
 
-  console.log("이건 나오나요?...");
 
   // 노트 체크 상태 업데이트 함수
   const handleNoteCheckChange = (noteId, isChecked) => {
