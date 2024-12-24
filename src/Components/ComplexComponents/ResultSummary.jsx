@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'antd/es/checkbox/Checkbox';
+import { Checkbox } from '@mui/material';
 import ExpandButton from '../BasicComponents/ExpandButton';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
