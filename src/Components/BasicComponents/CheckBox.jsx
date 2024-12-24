@@ -28,7 +28,6 @@ const CheckBox = () => {
             }}
           />
         }
-        label="Check me"
       />
     </div>
   );
