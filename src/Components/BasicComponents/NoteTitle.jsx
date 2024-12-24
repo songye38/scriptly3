@@ -3,7 +3,7 @@ import CheckBox from './CheckBox';
 
 const NoteTitle = ({ title, isChecked, onChange }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', width: '100%',gap:'20px',marginBottom:'8px'}}>
+    <div style={{ display: 'flex', alignItems: 'center', width: '100%',gap:'20px',marginBottom:'px'}}>
       {/* isChecked가 false일 때 체크박스를 숨김 */}
       {isChecked && (
         <CheckBox 

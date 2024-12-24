@@ -175,8 +175,8 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
 
 
   return (
-    <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '32px',overflow:'hidden' }}>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', overflow: 'hidden', height: '100vh',gap:'32px',overflow:'hidden'
+    <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '100%', alignItems: 'flex-start', gap: '32px'}}>
+      <div style={{width: '100%', display: 'flex', flexDirection: 'row', overflow: 'hidden', height: '100vh',gap:'32px',overflow:'hidden'
       }}>
         <div style={{width: '20%',display:'flex',flexDirection:'column',gap:'12px'}}>
           <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange}/>

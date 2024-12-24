@@ -109,6 +109,7 @@ useEffect(() => {
       }
   
       alert("프로젝트와 관련 질문이 성공적으로 저장되었습니다.");
+      setSelectedQuestions([]); // 이 부분 추가
 
     } catch (err) {
       console.error("Unexpected error:", err);
@@ -176,10 +177,10 @@ useEffect(() => {
       if (messageContainerRef.current) {
         const rect = messageContainerRef.current.getBoundingClientRect();
         const offset = 100; // 헤더 높이
-        window.scrollBy({
-          top: rect.top - offset,
-          behavior: "smooth",
-        });
+        // window.scrollBy({
+        //   top: rect.top - offset,
+        //   behavior: "smooth",
+        // });
       }
     }, 0);
   }, [conversation]);
@@ -311,7 +312,7 @@ useEffect(() => {
         }}
       >
         <MyInput value={inputValue} onChange={handleInputChange} placeholder="제목을 입력해주세요." />
-        <Button onClick={handleMakeChapter} title={"OK"} type="primary" disabled={loading || !isDetailedView} />
+        <Button onClick={handleMakeChapter} title={"OK"} type="primary" />
       </div>
       {/* Study Questions */}
       {studyQuestions.map((question, idx) => (

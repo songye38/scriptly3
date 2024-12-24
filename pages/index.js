@@ -8,38 +8,37 @@ import InputModal from '../src/Components/BasicComponents/InputModal';
 import ProjectTab from '../src/Components/BasicComponents/ProjectTab';
 
 const Home = ({ posts, projects }) => {
-  const [projectName, setProjectName] = useState('');
+//   const [projectName, setProjectName] = useState('');
   const router = useRouter();
 
-  const createProject = async (name) => {
-    try {
-      const { data, error } = await supabase
-        .from('projects')
-        .insert([{ name, description: '새 프로젝트' }])
-        .select();
+//   const createProject = async (name) => {
+//     try {
+//       const { data, error } = await supabase
+//         .from('projects')
+//         .insert([{ name, description: '새 프로젝트' }])
+//         .select();
 
-      if (error) {
-        console.error('Error:', error);
-        throw new Error(error.message);
-      }
+//       if (error) {
+//         console.error('Error:', error);
+//         throw new Error(error.message);
+//       }
 
-      const project = data[0];
-      router.push(`/projects/${project.id}`);
-    } catch (error) {
-      console.error('프로젝트 생성 실패:', error.message);
-    }
-  };
+//       const project = data[0];
+//       router.push(`/projects/${project.id}`);
+//     } catch (error) {
+//       console.error('프로젝트 생성 실패:', error.message);
+//     }
+//   };
 
-  const handleCreateProject = (name) => {
-    setProjectName(name);
-    createProject(name);
-  };
+//   const handleCreateProject = (name) => {
+//     setProjectName(name);
+//     createProject(name);
+//   };
 
   return (
     <div>
       <Header />
       <div>
-        <InputModal setProjectName={handleCreateProject} />
         <MainTab posts={posts} projects={projects} />
       </div>
     </div>
