@@ -171,7 +171,7 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '20px' }}>
       <div style={{ width: '20%', height: '100vh', display: 'inline-flex', flexDirection: 'column', borderRight: '1px solid #ccc' }}>
         <div style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', padding: '20px' }}>
-          <ProjectName title={project.name} />
+          {/* <ProjectName title={project.name} /> */}
           {activeTab === 'organizing' && 
             <Button title="노트 만들기" />}
         </div>
@@ -196,9 +196,9 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
           )}
         </div>
       </div>
-      <div style={{ width: '78%', display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100vh' }}>
-        <div style={{ width: '78%', textAlign: 'right', position: 'fixed', top: 0, right: 0, zIndex: 1000, backgroundColor: 'white', padding: '8px' }}>
-          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange} />
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100vh' }}>
+        <div style={{ width: '100%', textAlign: 'right', position: 'fixed', top: 0, right: 0, zIndex: 1000, backgroundColor: 'white', padding: '8px' }}>
+          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange} title={project.name}/>
         </div>
         {/* 조건부 렌더링 */}
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', gap: '20px', height: '100vh', top: '80px', position: 'relative' }}>
