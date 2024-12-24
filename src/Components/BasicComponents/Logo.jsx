@@ -6,7 +6,7 @@ const Logo = () => {
     <div style={{ width: 'auto', height: 'auto', padding: '10px' }}>
       <Link href="/" passHref>
         <img
-          style={{ width: '100px', height: '40px', borderRadius: '9999px' }}
+          style={{ width: 'auto', height: 'auto', borderRadius: '9999px' }}
           src="/images/logo.svg"
           alt="Logo img"
         />
