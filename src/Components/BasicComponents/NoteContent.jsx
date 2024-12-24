@@ -9,6 +9,7 @@ const NoteContent = ({ content }) => {
         fontFamily: 'Pretendard',
         fontWeight: '400',
         wordWrap: 'break-word',
+        paddingTop:'4px',
       }}
     >
       {content}

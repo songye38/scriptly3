@@ -10,7 +10,7 @@ const CheckBox = () => {
   };
 
   return (
-    <div style={{ margin: "1px" }}>
+    <div style={{ }}>
       {/* MUI Checkbox는 기본적으로 스타일이 잘 되어있지만, 추가적인 커스터마이징이 가능합니다 */}
       <FormControlLabel
         control={
@@ -25,6 +25,7 @@ const CheckBox = () => {
               "&:hover": {
                 backgroundColor: "rgba(49, 80, 238, 0.04)", // hover 상태의 배경 색상
               },
+              paddingRight:'0px',
             }}
           />
         }

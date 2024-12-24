@@ -9,12 +9,12 @@ const Note = ({ id, title, contentArray, isChecked, onCheckChange }) => {
   };
 
   return (
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px', paddingRight: '12px' ,paddingBottom :'12px'}}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
       {/* 제목 */}
       <NoteTitle title={title} isChecked={isChecked} onChange={handleCheckboxChange} />
 
       {/* NoteContent들을 감싸는 div */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column',gap:'20x' }}>
         {/* NoteContent들 */}
         {contentArray.map((content, index) => (
           <NoteContent

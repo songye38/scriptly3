@@ -7,6 +7,7 @@ import Note from '../../src/Components/ComplexComponents/Note';
 import MarkdownEditor from '../../src/Components/ComplexComponents/MarkdownEditor';
 import Button from '../../src/Components/BasicComponents/Button';
 import React from 'react';
+import ProjectName from '@/Components/BasicComponents/ProjectName';
 
 const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initialNotes }) => {
   const [notes, setNotes] = useState(initialNotes || []); 
@@ -174,41 +175,40 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
 
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '20px' }}>
-      <div style={{ width: '20%', height: '100vh', display: 'inline-flex', flexDirection: 'column' }}>
-        <div style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', padding: '20px' }}>
-          {/* <ProjectName title={project.name} /> */}
-          {activeTab === 'organizing' && 
-            <Button title="노트 만들기" />}
-        </div>
+    <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '32px',overflow:'hidden' }}>
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'row', overflow: 'hidden', height: '100vh',gap:'32px',overflow:'hidden'
+      }}>
+        <div style={{width: '20%',display:'flex',flexDirection:'column',gap:'12px'}}>
+          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange}/>
+          {activeTab === 'organizing' && <Button title="정리하기" />}
+          <div style={{backgroundColor:'#F5F5F5',padding:'16px',borderRadius:'4px'}}>
+            <ProjectName  title={project.name}/>
+            {/* 챕터 표시 */}
+            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', marginBottom: '4px' ,gap:'24px'}}>
+            {/* notes가 배열인지 확인하고 map() 호출 */}
+            {Array.isArray(notes) && notes.length > 0 ? (
+              notes.map((note) => {
+                const noteQuestions = note.note_questions || [];
+                const isChecked = checkedNotes[note.id] || false; // 해당 노트의 체크 상태 확인
+                return (
+                  <Note
+                    key={note.id}
+                    title={note.title}
+                    contentArray={noteQuestions.length > 0 ? noteQuestions.map(nq => nq.question_title) : ['내용 없음']}
+                    isChecked={activeTab === 'organizing' ?true : false}  // 'organizing'일 때만 isChecked 전달
+                    onCheckChange={activeTab === 'organizing' ? (isChecked) => handleNoteCheckChange(note.id, isChecked) : undefined}  // 'organizing'일 때만 onCheckChange 전달
+                  />
+                );
+              })
+            ) : (
+              <div>노트가 없습니다.</div>
+            )}
+          </div>
 
-      </div>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100vh' }}>
-        <div style={{ width: '20%', textAlign: 'left', position: 'fixed', top: 0, left: 0, zIndex: 1000, padding: '8px' }}>
-          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange} title={project.name}/>
-          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'scroll', marginBottom: '4px' }}>
-          {/* notes가 배열인지 확인하고 map() 호출 */}
-          {Array.isArray(notes) && notes.length > 0 ? (
-            notes.map((note) => {
-              const noteQuestions = note.note_questions || [];
-              const isChecked = checkedNotes[note.id] || false; // 해당 노트의 체크 상태 확인
-              return (
-                <Note
-                  key={note.id}
-                  title={note.title}
-                  contentArray={noteQuestions.length > 0 ? noteQuestions.map(nq => nq.question_title) : ['내용 없음']}
-                  isChecked={activeTab === 'organizing' ?true : false}  // 'organizing'일 때만 isChecked 전달
-                  onCheckChange={activeTab === 'organizing' ? (isChecked) => handleNoteCheckChange(note.id, isChecked) : undefined}  // 'organizing'일 때만 onCheckChange 전달
-                />
-              );
-            })
-          ) : (
-            <div>노트가 없습니다.</div>
-          )}
-        </div>
+          </div>
         </div>
         {/* 조건부 렌더링 */}
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'row', gap: '20px', height: '100vh', top: '80px', position: 'relative' }}>
+        <div style={{ width: '80%', display: 'flex', flexDirection: 'row', gap: '20px', height: '100vh',top:'20px', position: 'relative' }}>
           {activeTab === 'study' && 
             <ChatComponent projectID={project.id} studyQuestions={studyQuestions} />}
           
