@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useRouter } from 'next/router';
 import InputModal from './InputModal';
 import { supabase } from '@/utils/supabase';
+import Link from 'next/link';
 
 const MainTab = ({ posts, projects }) => {
   const [projectName, setProjectName] = useState('');
@@ -86,88 +87,90 @@ const MainTab = ({ posts, projects }) => {
       marginTop: '20px',
     }}>
       {posts.map((post) => (
-        <div
-          key={post.id}
-          style={{
-            background: 'linear-gradient(135deg, #E0E4FF, #B5C6FF)',
-            borderRadius: '12px',
-            boxShadow: '0 6px 18px rgba(0, 0, 0, 0.15)',
-            padding: '20px',
-            transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-            transformStyle: 'preserve-3d',
-            cursor: 'pointer',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.05) rotateX(3deg)';
-            e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.2)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1) rotateX(0)';
-            e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.15)';
-          }}
-        >
-          <h3 style={{
-            fontSize: '16px',
-            fontWeight: '600',
-            color: '#2E3A59',
-            marginBottom: '14px',
-            lineHeight: '1.5',
-          }}>
-            {post.title}
-          </h3>
-          <p style={{
-            fontSize: '14px',
-            color: '#525F7F',
-            lineHeight: '1.8',
-            wordWrap: 'break-word',
-            maxHeight: '100px',
-            overflow: 'hidden', // 내용이 너무 길 경우 잘라냄
-          }}>
-            {post.content}
-          </p>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: '16px',
-          }}>
-            <div style={{
-              fontSize: '12px',
-              color: '#7888A4',
-              background: '#F0F4FF',
-              padding: '4px 8px',
-              borderRadius: '16px',
-              textTransform: 'uppercase',
-              fontWeight: '500',
+        <Link href={`/posts/${post.id}`} key={post.id}>
+          <div
+            key={post.id}
+            style={{
+              background: 'linear-gradient(135deg, #E0E4FF, #B5C6FF)',
+              borderRadius: '12px',
+              boxShadow: '0 6px 18px rgba(0, 0, 0, 0.15)',
+              padding: '20px',
+              transition: 'transform 0.4s ease, box-shadow 0.4s ease',
+              transformStyle: 'preserve-3d',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05) rotateX(3deg)';
+              e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1) rotateX(0)';
+              e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.15)';
+            }}
+          >
+            <h3 style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: '#2E3A59',
+              marginBottom: '14px',
+              lineHeight: '1.5',
             }}>
-              {post.tag || 'General'} {/* 예: 태그를 표시 */}
+              {post.title}
+            </h3>
+            <p style={{
+              fontSize: '14px',
+              color: '#525F7F',
+              lineHeight: '1.8',
+              wordWrap: 'break-word',
+              maxHeight: '100px',
+              overflow: 'hidden', // 내용이 너무 길 경우 잘라냄
+            }}>
+              {post.content}
+            </p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '16px',
+            }}>
+              <div style={{
+                fontSize: '12px',
+                color: '#7888A4',
+                background: '#F0F4FF',
+                padding: '4px 8px',
+                borderRadius: '16px',
+                textTransform: 'uppercase',
+                fontWeight: '500',
+              }}>
+                {post.tag || 'General'} {/* 예: 태그를 표시 */}
+              </div>
+              <button
+                onClick={() => handlePostClick(post.id)} // 클릭 시 블로그 포스트 상세 페이지로 이동
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#5670F1',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  transition: 'background-color 0.3s, transform 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#435BB2';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#5670F1';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Read More
+              </button>
             </div>
-            <button
-              onClick={() => handlePostClick(post.id)} // 클릭 시 블로그 포스트 상세 페이지로 이동
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#5670F1',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '20px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: '600',
-                transition: 'background-color 0.3s, transform 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#435BB2';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#5670F1';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              Read More
-            </button>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
         )}
