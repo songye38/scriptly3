@@ -9,7 +9,7 @@ const ProjectHeader = ({ activeTab, onTabChange,title }) => {
       <div style={{width : '20%'}}>
         <ProjectName title={title} />
       </div>
-      <div style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex' }}>
+      <div style={{ width: 'auto', height: '100%', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex' }}>
         {/* Study Tab */}
         <div
           style={{
