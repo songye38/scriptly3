@@ -169,7 +169,7 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '20px' }}>
-      <div style={{ width: '20%', height: '100vh', display: 'inline-flex', flexDirection: 'column', borderRight: '1px solid #ccc' }}>
+      <div style={{ width: '20%', height: '100vh', display: 'inline-flex', flexDirection: 'column' }}>
         <div style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', padding: '20px' }}>
           {/* <ProjectName title={project.name} /> */}
           {activeTab === 'organizing' && 
