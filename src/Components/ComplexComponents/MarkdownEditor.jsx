@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect } from "react";
 
-const MarkdownEditor = ({ initialContent, onSave }) => {
+const MarkdownEditor = ({ initialContent }) => {
   const [value, setValue] = useState(initialContent);
 
   const handleEditorChange = (newValue) => {
     setValue(newValue);
-  };
-
-  const handleSave = () => {
-    if (onSave) {
-      onSave(value); // 저장된 마크다운 내용 처리
-    }
   };
 
   useEffect(() => {
@@ -33,22 +27,6 @@ const MarkdownEditor = ({ initialContent, onSave }) => {
         }}
       />
       
-      {/* 저장 버튼 */}
-      <button
-        onClick={handleSave}
-        style={{
-          padding: '10px 20px',
-          margin: '10px',
-          alignSelf: 'center',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-      >
-        저장
-      </button>
 
       {/* MDEditor 아이콘 크기 조정 */}
       <style jsx>{`
