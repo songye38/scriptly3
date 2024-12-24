@@ -7,7 +7,6 @@ import MainTab from '../src/Components/BasicComponents/MainTab';
 import InputModal from '../src/Components/BasicComponents/InputModal';
 
 const Home = ({ posts, projects }) => {
-  console.log("메인 화면에 왔다.");
   const [projectName, setProjectName] = useState('');
   const router = useRouter();
 

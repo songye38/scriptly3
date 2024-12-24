@@ -20,7 +20,6 @@ const MainTab = ({ posts, projects }) => {
   return (
     <div>
       {/* 탭 메뉴 */}
-      <h1>표시가 잘 되려나?</h1>
       <div style={{ display: 'flex', gap: '0px' ,marginBottom:'12px'}}>
         <div
           style={{
@@ -49,7 +48,7 @@ const MainTab = ({ posts, projects }) => {
           공부
         </div>
       </div>
-      {activeTab === 'study' && (
+      {activeTab === 'blog' && (
   <div style={{
     display: 'grid', 
     gridTemplateColumns: 'repeat(3, 1fr)', // 한 줄에 3개의 카드 배치
@@ -124,7 +123,7 @@ const MainTab = ({ posts, projects }) => {
     ))}
   </div>
 )}
-      {activeTab === 'blog' && (
+      {activeTab === 'study' && (
       <div
         style={{
           display: 'grid',
