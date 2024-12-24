@@ -5,7 +5,7 @@ import ProjectName from '../BasicComponents/ProjectName';
 
 const ProjectHeader = ({ activeTab, onTabChange,title }) => {
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' ,margin:'8px 20px'}}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' ,padding:'8px 20px'}}>
       <div style={{}}>
         <ProjectName title={title} />
       </div>
