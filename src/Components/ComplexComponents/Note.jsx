@@ -9,7 +9,7 @@ const Note = ({ id, title, contentArray, isChecked, onCheckChange }) => {
   };
 
   return (
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px', paddingRight: '12px' }}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px', paddingRight: '12px' ,paddingBottom :'12px',backgroundColor:'blue'}}>
       {/* 제목 */}
       <NoteTitle title={title} isChecked={isChecked} onChange={handleCheckboxChange} />
 
