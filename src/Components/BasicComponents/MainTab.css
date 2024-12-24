@@ -203,6 +203,18 @@
     .study-container {
         grid-template-columns: repeat(2, 1fr); /* 2개의 카드 */
     }
+    .blog-card-footer button {
+        width: 100%;
+        padding: 8px 16px;
+        background-color: #5670F1;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: background-color 0.3s, transform 0.2s;
+    }
 }
 
 /* 태블릿: 768px ~ 1280px */

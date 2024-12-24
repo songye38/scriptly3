@@ -73,7 +73,7 @@ const MainTab = ({ posts, projects }) => {
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
                   <div className="blog-card-footer">
-                    <div className="tag">{post.tag || 'General'}</div>
+                    {/* <div className="tag">{post.tag || 'General'}</div> */}
                     <button
                       onClick={() => handlePostClick(post.id)}
                       className="read-more-btn"
