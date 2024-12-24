@@ -5,6 +5,7 @@ import { supabase } from '../src/utils/supabase';
 import Header from '../src/Components/ComplexComponents/Header';
 import MainTab from '../src/Components/BasicComponents/MainTab';
 import InputModal from '../src/Components/BasicComponents/InputModal';
+import ProjectTab from '../src/Components/BasicComponents/ProjectTab';
 
 const Home = ({ posts, projects }) => {
   const [projectName, setProjectName] = useState('');

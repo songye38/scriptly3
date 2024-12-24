@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../src/utils/supabase';
 import { useRouter } from 'next/router';
-import ProjectName from '../../src/Components/BasicComponents/ProjectName';
 import ProjectHeader from '../../src/Components/ComplexComponents/ProjectHeader';
 import ChatComponent from '../../src/Components/ComplexComponents/ChatComponent';
 import Note from '../../src/Components/ComplexComponents/Note';
 import MarkdownEditor from '../../src/Components/ComplexComponents/MarkdownEditor';
 import Button from '../../src/Components/BasicComponents/Button';
-import React from 'react'; 
+import React from 'react';
 
 const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initialNotes }) => {
   const [notes, setNotes] = useState(initialNotes || []); 
@@ -19,7 +18,6 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
   if (!project) {
     return <div>프로젝트를 찾을 수 없습니다.</div>;
   }
-
 
   // 노트 체크 상태 업데이트 함수
   const handleNoteCheckChange = (noteId, isChecked) => {
@@ -36,15 +34,9 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     setActiveTab(tab);
   };
 
-  useEffect(() => {
-    // 노트의 체크 상태 초기화
-    const initialCheckedState = notes.reduce((acc, note) => {
-      acc[note.id] = false; // 모든 노트는 처음에 체크되지 않음
-      return acc;
-    }, {});
-    setCheckedNotes(initialCheckedState);
 
-    // 실시간 노트 변경 구독
+  useEffect(() => {
+    // 실시간 노트 변경 구독 (조건문 밖에서 실행)
     const notesChannel = supabase.channel('notes_channel')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notes' }, async (payload) => {
         console.log('Notes 삽입:', payload);
@@ -165,7 +157,21 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     return () => {
       notesChannel.unsubscribe();
     };
-  }, [notes]);
+  }, []); // 빈 배열로 설정하여 최초 1회만 실행
+
+  useEffect(() => {
+    // 노트의 체크 상태 초기화
+    const initialCheckedState = notes.reduce((acc, note) => {
+      acc[note.id] = false; // 모든 노트는 처음에 체크되지 않음
+      return acc;
+    }, {});
+    setCheckedNotes(initialCheckedState);
+  }, [notes]); // notes 상태가 변경될 때마다 실행되도록 의존성 배열에 추가
+
+ 
+
+
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '100vh', alignItems: 'flex-start', gap: '20px' }}>
@@ -175,7 +181,12 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
           {activeTab === 'organizing' && 
             <Button title="노트 만들기" />}
         </div>
-        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'scroll', marginBottom: '4px' }}>
+
+      </div>
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100vh' }}>
+        <div style={{ width: '20%', textAlign: 'left', position: 'fixed', top: 0, left: 0, zIndex: 1000, padding: '8px' }}>
+          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange} title={project.name}/>
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'scroll', marginBottom: '4px' }}>
           {/* notes가 배열인지 확인하고 map() 호출 */}
           {Array.isArray(notes) && notes.length > 0 ? (
             notes.map((note) => {
@@ -195,10 +206,6 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
             <div>노트가 없습니다.</div>
           )}
         </div>
-      </div>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100vh' }}>
-        <div style={{ width: '100%', textAlign: 'right', position: 'fixed', top: 0, right: 0, zIndex: 1000, backgroundColor: 'white', padding: '8px' }}>
-          <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange} title={project.name}/>
         </div>
         {/* 조건부 렌더링 */}
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', gap: '20px', height: '100vh', top: '80px', position: 'relative' }}>

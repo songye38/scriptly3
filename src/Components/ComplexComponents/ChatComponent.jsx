@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import MyInput from "../BasicComponents/MyInput";
 import Button from "../BasicComponents/Button";
 import { supabase } from "../../utils/supabase";
-import UserMsg from "../BasicComponents/\bUserMsg";
+import UserMsg from "../BasicComponents/Msg";
 import ResultBasic from "./ResultBasic";
 import ResultSummary from "./ResultSummary";
 import Toggle from "../BasicComponents/Toggle";
-import PromptOption from "../BasicComponents/\bPromptOption";
+import PromptOption from "../BasicComponents/Option.jsx";
 import prompts from "../../utils/prompts";
 
 const ChatComponent = ({ projectID, studyQuestions }) => {

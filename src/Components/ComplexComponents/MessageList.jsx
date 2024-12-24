@@ -1,5 +1,5 @@
 import React from 'react'
-import UserMsg from '../BasicComponents/\bUserMsg'
+import UserMsg from '../BasicComponents/Msg'
 import ResultBasic from './ResultBasic'
 
 function MessageList() {
