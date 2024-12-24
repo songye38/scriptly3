@@ -10,7 +10,7 @@ const CheckBox = () => {
   };
 
   return (
-    <div style={{ margin: "4px" }}>
+    <div style={{ margin: "1px" }}>
       {/* MUI Checkbox는 기본적으로 스타일이 잘 되어있지만, 추가적인 커스터마이징이 가능합니다 */}
       <FormControlLabel
         control={
