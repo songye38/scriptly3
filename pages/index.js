@@ -36,7 +36,7 @@ const Home = ({ posts, projects }) => {
 //   };
 
   return (
-    <div>
+    <div style  ={{}}>
       <Header />
       <div>
         <MainTab posts={posts} projects={projects} />

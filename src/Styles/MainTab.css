@@ -1,3 +1,181 @@
-.project-item:hover {
-    border-color: #4CAF50; /* hover 시 선 색상 변경 */
-  }
+/* 기본 스타일 (데스크탑 기준) */
+
+/* 탭 메뉴 */
+.tabs {
+  display: flex;
+  gap: 0px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 300;
+  color: #BFBFBF;
+  border-bottom: none;
+}
+
+.tab.active {
+  font-weight: 500;
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+/* 블로그 탭 */
+.blog-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 카드 배치 */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* 개별 포스트 카드 */
+.blog-card {
+  background: linear-gradient(135deg, #E0E4FF, #B5C6FF);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  transform: scale(1.05) rotateX(3deg);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2E3A59;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.blog-card p {
+  font-size: 14px;
+  color: #525F7F;
+  line-height: 1.8;
+  word-wrap: break-word;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.blog-card-footer .tag {
+  font-size: 12px;
+  color: #7888A4;
+  background: #F0F4FF;
+  padding: 4px 8px;
+  border-radius: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.blog-card-footer button {
+  padding: 8px 16px;
+  background-color: #5670F1;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.blog-card-footer button:hover {
+  background-color: #435BB2;
+  transform: translateY(-2px);
+}
+
+.blog-card-footer button:active {
+  background-color: #5670F1;
+  transform: translateY(0);
+}
+
+/* 공부 탭 */
+.study-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 카드 배치 */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* 개별 프로젝트 카드 */
+.study-card {
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 200px;
+}
+
+.study-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.study-card .image {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.study-card .text {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  color: black;
+  background-color: white;
+  padding: 14px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.study-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 인풋 모달 (프로젝트 생성) */
+.input-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.input-modal button {
+  padding: 10px 20px;
+  background-color: #5670F1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input-modal button:hover {
+  background-color: #435BB2;
+}
