@@ -29,8 +29,8 @@ const ChatComponent = ({ projectID, studyQuestions }) => {
     setInputValue(e.target.value);
   };
 
-  const handleToggleChange = (checked) => {
-    setIsDetailedView(checked);
+  const handleToggleChange = (event) => {
+    setIsDetailedView(event.target.checked);
   };
 
   // 체크박스 상태 변경 핸들러

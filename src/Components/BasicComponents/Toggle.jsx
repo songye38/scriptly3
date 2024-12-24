@@ -6,24 +6,22 @@ const Toggle = ({ checked, onChange }) => {
     <div style={{ margin: '8px' }}>
       <Switch
         checked={checked}
-        onChange={onChange}
+        onChange={onChange}  // event 객체를 전달할 수 있도록 onChange 수정
         sx={{
-          // 체크된 상태에서의 색상
           '&.Mui-checked': {
             color: '#3150EE',
           },
-          // 체크된 상태에서 배경색
           '&.Mui-checked + .MuiSwitch-track': {
             backgroundColor: '#3150EE',
           },
-          // Hover 상태에서의 색상
           '&:hover': {
-            backgroundColor: 'rgba(49, 80, 238, 0.1)', // Hover시 배경색
+            backgroundColor: 'rgba(49, 80, 238, 0.1)',
           },
         }}
       />
     </div>
   );
 };
+
 
 export default Toggle;
