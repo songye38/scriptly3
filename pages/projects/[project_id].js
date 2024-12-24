@@ -32,9 +32,6 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
       }));
     }
   };
-  
-  
-  
 
   // 버튼 클릭 시 체크된 노트 데이터 서버에서 가져오기
   const fetchDataForCheckedNotes = async () => {
@@ -90,22 +87,40 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     await fetchDataForCheckedNotes();
   };
 
+  const handleMakeBlogClick = async () => {
+    if (!editorContent.trim()) {
+      alert('콘텐츠가 비어있습니다. 내용을 작성해주세요.');
+      return;
+    }
 
-  // useEffect(() => {
-  //   // 컴포넌트가 처음 마운트 될 때 또는 체크된 노트가 변할 때마다 데이터를 가져올 수 있습니다.
-  //   if (activeTab === 'organizing') {
-  //     fetchDataForCheckedNotes();
-  //   }
-  // }, [checkedNotes, activeTab]);
+    try {
+      // Supabase posts 테이블에 데이터 삽입
+      const { data, error } = await supabase
+        .from('posts') // posts 테이블
+        .insert([
+          {
+            title: project.name, // 제목
+            content: editorContent, // 에디터 내용
+          },
+        ]);
 
-  
-  
+      if (error) {
+        console.error('블로그 발행 중 오류 발생:', error);
+        alert('블로그 발행 중 오류가 발생했습니다.');
+        return;
+      }
 
+      alert('블로그 발행이 성공적으로 완료되었습니다!');
+      console.log('발행된 데이터:', data);
+    } catch (err) {
+      console.error('블로그 발행 실패:', err);
+      alert('블로그 발행 중 예기치 못한 오류가 발생했습니다.');
+    }
+  };
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-
 
   useEffect(() => {
     // 실시간 노트 변경 구독 (조건문 밖에서 실행)
@@ -231,19 +246,6 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
     };
   }, []); // 빈 배열로 설정하여 최초 1회만 실행
 
-  // useEffect(() => {
-  //   // 노트의 체크 상태 초기화
-  //   const initialCheckedState = notes.reduce((acc, note) => {
-  //     acc[note.id] = false; // 모든 노트는 처음에 체크되지 않음
-  //     return acc;
-  //   }, {});
-  //   setCheckedNotes(initialCheckedState);
-  // }, [notes]); // notes 상태가 변경될 때마다 실행되도록 의존성 배열에 추가
-
- 
-
-
-
 
   return (
     <div style={{display: 'flex', flexDirection: 'row', width: '100%', height: '100%', alignItems: 'flex-start', gap: '32px'}}>
@@ -251,7 +253,13 @@ const ProjectDetail = ({ project, studyQuestions, notesWithQuestionTitles: initi
       }}>
         <div style={{width: '20%',display:'flex',flexDirection:'column',gap:'12px'}}>
           <ProjectHeader activeTab={activeTab} onTabChange={handleTabChange}/>
-          {activeTab === 'organizing' && <Button title="정리하기"  onClick={handleSaveButtonClick}/>}
+          {activeTab === 'organizing' && 
+          <div style={{display:'flex',flexDirection:'column',gap:'4px'}}>
+            <Button title="정리하기"  onClick={handleSaveButtonClick}/>
+            <Button title="블로그로 발행하기"  onClick={handleMakeBlogClick} style={{backgroundColor:'black'}}/>
+          </div>
+          
+          }
           <div style={{backgroundColor:'#F5F5F5',padding:'16px',borderRadius:'4px'}}>
             <ProjectName  title={project.name}/>
             {/* 챕터 표시 */}

@@ -10,25 +10,33 @@ const Note = ({ id, title, contentArray, isChecked, onCheckChange, isVisible }) 
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-      {/* 제목 */}
+      <div style={{display:'flex',flexDirection:'row'}}>
+
+              {/* 제목 */}
+          {/* 체크박스 */}
+          {isVisible && (
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange} // 체크박스 클릭 시 부모로 상태 변경
+          style={{width:'auto'}}
+        />
+      )}
+
+
       <NoteTitle title={title} isChecked={isChecked} onChange={handleCheckboxChange} />
 
+      </div>
+
+
       {/* NoteContent들을 감싸는 div */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
         {/* NoteContent들 */}
         {contentArray.map((content, index) => (
           <NoteContent key={index} content={content} />
         ))}
       </div>
 
-      {/* 체크박스 */}
-      {isVisible && (
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxChange} // 체크박스 클릭 시 부모로 상태 변경
-        />
-      )}
     </div>
   );
 };
