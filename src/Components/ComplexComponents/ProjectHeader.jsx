@@ -6,7 +6,9 @@ import ProjectName from '../BasicComponents/ProjectName';
 const ProjectHeader = ({ activeTab, onTabChange,title }) => {
   return (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-      <ProjectName title={title} />
+      <div style={{width : '20%'}}>
+        <ProjectName title={title} />
+      </div>
       <div style={{ width: '100%', height: '100%', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex' }}>
         {/* Study Tab */}
         <div

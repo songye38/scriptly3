@@ -6,10 +6,7 @@ const ProjectName = ({title}) => {
       style={{
         width: "auto",
         height: "auto",
-        // paddingTop: 10,
         paddingBottom: 20,
-        // paddingLeft: 10,
-        // paddingRight: 10,
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
