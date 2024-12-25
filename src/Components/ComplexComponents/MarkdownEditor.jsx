@@ -1,48 +1,44 @@
-'use client';
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { marked } from "marked";
+import "easymde/dist/easymde.min.css";
+import hljs from "highlight.js"; // highlight.js 임포트
+import "highlight.js/styles/github.css"; // 기본 스타일
 
-import React, { useState, useEffect, useRef } from 'react';
-import InitializedMDXEditor from '../BasicComponents/InitializedMDXEditor';
+// SimpleMDE를 클라이언트 사이드에서만 로드하도록 설정
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false, // 서버 사이드 렌더링 비활성화
+});
 
 const MarkdownEditor = ({ initialContent }) => {
-  const [value, setValue] = useState(initialContent || ''); // 초기값 설정
-  const ref = useRef(null); // MDXEditor에 대한 ref 설정
+  const [value, setValue] = useState(initialContent || ""); // 초기값 설정
 
-  // initialContent가 변경되면 editor의 내용을 업데이트
   useEffect(() => {
-    setValue(initialContent); // 상태값을 업데이트
-    if (ref.current) {
-      ref.current.setMarkdown(initialContent); // ref를 통해 setMarkdown 호출
-    }
-  }, [initialContent]); // initialContent가 변경될 때마다 실행
+    setValue(initialContent); // initialContent가 변경될 때 value를 업데이트
+  }, [initialContent]);
 
-  // editor에서 값이 변경될 때 상태를 업데이트
-  const handleEditorChange = (newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    // value가 변경될 때마다 ref에서 최종값을 출력
-    if (ref.current) {
-      console.log("최종 red");
-      console.log(ref.current.getMarkdown()); // 최종 값 출력
-    }
-  }, [value]);
+  // marked 렌더러 설정: 코드 블록을 highlight.js로 처리
+  marked.setOptions({
+    renderer: new marked.Renderer(),
+    highlight: function (code, language) {
+      const validLang = hljs.getLanguage(language) ? language : "plaintext"; // 유효한 언어만 사용
+      return hljs.highlight(code, { language: validLang }).value; // 구문 강조
+    },
+  });
 
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'white',
-      }}
-    >
-      <InitializedMDXEditor
-        ref={ref} // MDXEditor에 ref 전달
-        markdown={value} // markdown 상태 전달
-        //onChange={alert(initialContent)} // markdown이 변경될 때 호출되는 함수
-      />
+    <div style={{display:'flex',flexDirection:'row',gap:'16px'}}>
+      <div style={{ height: '100vh', overflow: 'auto' }}>
+        <SimpleMDE value={value} onChange={handleChange} />
+      </div>
+      <div style={{ height: '100vh', overflow: 'auto' }}>
+        <h4>결과 미리보기</h4>
+        <div dangerouslySetInnerHTML={{ __html: marked(value) }} /> {/* 마크다운을 HTML로 변환 */}
+      </div>
     </div>
   );
 };

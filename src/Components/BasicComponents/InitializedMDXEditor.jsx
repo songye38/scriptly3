@@ -10,11 +10,13 @@ import {
   MDXEditorMethods
 } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
+import './InitializedMDXEditor.css'
 
 // forwardRef를 사용하여 ref를 전달받는 컴포넌트
 const InitializedMDXEditor = forwardRef((props, ref) => {
   return (
     <MDXEditor
+        contentEditableClassName="prose"
       plugins={[
         headingsPlugin(),
         listsPlugin(),
