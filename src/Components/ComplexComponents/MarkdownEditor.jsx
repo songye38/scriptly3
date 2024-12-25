@@ -4,6 +4,7 @@ import { marked } from "marked";
 import "easymde/dist/easymde.min.css";
 import hljs from "highlight.js"; // highlight.js 임포트
 import "highlight.js/styles/github.css"; // 기본 스타일
+import './MarkdownEditor.css'
 
 // SimpleMDE를 클라이언트 사이드에서만 로드하도록 설정
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -35,10 +36,11 @@ const MarkdownEditor = ({ initialContent }) => {
       <div style={{ height: '100vh', overflow: 'auto' }}>
         <SimpleMDE value={value} onChange={handleChange} />
       </div>
-      <div style={{ height: '100vh', overflow: 'auto' }}>
-        <h4>결과 미리보기</h4>
-        <div dangerouslySetInnerHTML={{ __html: marked(value) }} /> {/* 마크다운을 HTML로 변환 */}
-      </div>
+ 
+      {/* <div style={{ height: '100vh', overflow: 'auto',paddingBottom:'10px' }}> */}
+        {/* <h4>결과 미리보기</h4> */}
+        {/* <div dangerouslySetInnerHTML={{ __html: marked(value) }} /> 마크다운을 HTML로 변환 */}
+      {/* </div>  */}
     </div>
   );
 };

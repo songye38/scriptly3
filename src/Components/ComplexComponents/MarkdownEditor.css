@@ -1,0 +1,50 @@
+.editor-toolbar {
+    background-color:white;
+    font-family: "Noto Sans KR", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.editor-toolbar button {
+    color : #3150EE;
+}
+
+
+
+.CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word){
+    background-color:white;
+}
+
+.cm-s-easymde .cm-comment {
+    background-color: #EAEEFD;
+}
+
+
+.cm-s-easymde .cm-header-1 {
+    font-size: 18px;
+    font-family: "Noto Sans KR", serif;
+    font-family: 100;
+    color : #2A44CA;
+}
+
+.cm-s-easymde .cm-header-2 {
+    font-size: 16px;
+    font-family: "Noto Sans KR", serif;
+    font-family: 100;
+}
+.cm-s-easymde .cm-header-3 {
+    font-size: 14px;
+    font-family: "Noto Sans KR", serif;
+    font-family: 100;
+}
+.cm-s-easymde .cm-header-4 {
+    font-size: 13px;
+    font-family: "Noto Sans KR", serif;
+    font-family: 100;
+}
+.cm-s-easymde .cm-header-5 {
+    font-size: 12px;
+    font-family: "Noto Sans KR", serif;
+    font-family: 100;
+}
