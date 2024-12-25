@@ -124,8 +124,8 @@
 }
 
 .study-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
 .study-card .image {
@@ -197,15 +197,16 @@
 
     /* 모바일에서 2개의 카드만 보이도록 설정 */
     .blog-container {
-        grid-template-columns: repeat(2, 1fr); /* 2개의 카드 */
+        grid-template-columns: repeat(1, 1fr); /* 2개의 카드 */
     }
 
     .study-container {
         grid-template-columns: repeat(2, 1fr); /* 2개의 카드 */
+        gap:8px;
     }
     .blog-card-footer button {
         width: 100%;
-        padding: 8px 16px;
+        padding: 12px 16px;
         background-color: #5670F1;
         color: #fff;
         border: none;
