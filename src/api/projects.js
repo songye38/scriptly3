@@ -14,6 +14,8 @@ export const createProject = async (name) => {
 
   return res.json(); // FastAPI에서 반환된 Project 객체
 };
+
+
 export const getProjects = async () => {
   const res = await fetch(`${BASE_URL}/projects/`);
   return res.json();
