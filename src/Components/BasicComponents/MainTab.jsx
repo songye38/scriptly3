@@ -26,6 +26,7 @@ const MainTab = ({ posts, projects }) => {
   const createProject = async (name) => {
     try {
       const project = await apiCreateProject(name);
+      console.log("프로젝트 생성 성공:", project);
       router.push(`/projects/${project.id}`);
     } catch (error) {
       console.error("프로젝트 생성 실패:", error.message);
