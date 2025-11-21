@@ -1,7 +1,7 @@
 const BASE_URL = "scriptlyserver-production.up.railway.app";
 
 export const createProject = async (name) => {
-  const res = await fetch(`${BASE_URL}/projects/`, {
+  const res = await fetch(`${BASE_URL}/projects`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, description: "새 프로젝트" }),
@@ -17,7 +17,7 @@ export const createProject = async (name) => {
 
 
 export const getProjects = async () => {
-  const res = await fetch(`${BASE_URL}/projects/`);
+  const res = await fetch(`${BASE_URL}/projects`);
   return res.json();
 };
 
