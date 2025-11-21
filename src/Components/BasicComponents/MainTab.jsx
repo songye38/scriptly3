@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import InputModal from './InputModal';
-import { supabase } from '@/utils/supabase';
+import { createProject as apiCreateProject } from "@/api/projects";
 import Link from 'next/link';
 import './MainTab.css';
 
@@ -16,7 +16,7 @@ const MainTab = ({ posts, projects }) => {
     console.log("Changing tab to:", tab); // 탭 전환 시 로그 확인
     setActiveTab(tab);
   };
-  
+
   const router = useRouter();
 
   const handleProjectClick = (projectId) => {
@@ -25,20 +25,10 @@ const MainTab = ({ posts, projects }) => {
 
   const createProject = async (name) => {
     try {
-      const { data, error } = await supabase
-        .from('projects')
-        .insert([{ name, description: '새 프로젝트' }])
-        .select();
-
-      if (error) {
-        console.error('Error:', error);
-        throw new Error(error.message);
-      }
-
-      const project = data[0];
+      const project = await apiCreateProject(name);
       router.push(`/projects/${project.id}`);
     } catch (error) {
-      console.error('프로젝트 생성 실패:', error.message);
+      console.error("프로젝트 생성 실패:", error.message);
     }
   };
 
